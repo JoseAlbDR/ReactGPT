@@ -1,4 +1,9 @@
-import { GptMessage, TypingLoader, UserMessage } from '../../components';
+import {
+  GptMessage,
+  TextMessageBox,
+  TypingLoader,
+  UserMessage,
+} from '../../components';
 
 const OrthographyPage = () => {
   return (
@@ -12,6 +17,12 @@ const OrthographyPage = () => {
           <TypingLoader className="fade-in" />
         </div>
       </div>
+
+      <TextMessageBox
+        onSendMessage={(message) => console.log(message)}
+        placeholder="Write here your shit"
+        disableCorrections
+      />
     </div>
   );
 };
