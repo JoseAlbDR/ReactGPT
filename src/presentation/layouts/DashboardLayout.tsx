@@ -9,7 +9,7 @@ export const DashboardLayout = () => {
         <h1 className="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 bg-clip-text text-transparent">
           ReactGPT<span className="text-indigo-500">.</span>
         </h1>
-        <span className="text-xl text-stone-300">Bienvenido</span>
+        <span className="text-xl text-stone-300">Hellcome</span>
 
         <div className="border-gray-700 border my-3" />
 
