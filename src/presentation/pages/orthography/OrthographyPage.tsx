@@ -1,4 +1,4 @@
-import { GptMessage } from '../../components';
+import { GptMessage, MyMessage } from '../../components';
 
 const OrthographyPage = () => {
   return (
@@ -6,6 +6,8 @@ const OrthographyPage = () => {
       <div className="chat-messages">
         <div className="grid grid-cols-12 gap-y-2">
           <GptMessage text="Hello there!, you can write your text in english and I will help you with the corrections" />
+
+          <MyMessage text="Hello there! " />
         </div>
       </div>
     </div>
