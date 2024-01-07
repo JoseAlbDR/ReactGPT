@@ -1,5 +1,8 @@
+import { RouterProvider } from 'react-router-dom';
+import { router } from './presentation/router/router';
+
 const App = () => {
-  return <h1 className="m-auto">React GPT</h1>;
+  return <RouterProvider router={router} />;
 };
 
 export default App;
