@@ -1,5 +1,5 @@
 const App = () => {
-  return <h1>React GPT</h1>;
+  return <h1 className="m-auto">React GPT</h1>;
 };
 
 export default App;
