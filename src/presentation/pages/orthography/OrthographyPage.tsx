@@ -10,6 +10,11 @@ import { orthographyUseCase } from '../../../core/use-cases';
 interface Message {
   text: string;
   isGpt: boolean;
+  info?: {
+    userScore: number;
+    errors: string[];
+    message: string;
+  };
 }
 
 const OrthographyPage = () => {
@@ -20,13 +25,26 @@ const OrthographyPage = () => {
     setIsLoading(true);
     setMessages((prev) => [...prev, { text, isGpt: false }]);
 
-    //TODO: UseCase
+    const { ok, message, errors, userScore } = await orthographyUseCase(text);
 
-    const {} = await orthographyUseCase(text);
+    if (!ok) {
+      setIsLoading(false);
+      setMessages((prev) => [...prev, { text: message, isGpt: true }]);
+    }
 
     setIsLoading(false);
-
-    //TODO: Add message isGpt true
+    setMessages((prev) => [
+      ...prev,
+      {
+        text: message,
+        isGpt: true,
+        info: {
+          errors,
+          userScore,
+          message,
+        },
+      },
+    ]);
   };
 
   return (
@@ -37,7 +55,7 @@ const OrthographyPage = () => {
 
           {messages.map((message, index) =>
             message.isGpt ? (
-              <GptMessage key={index} text="OpenAI!" />
+              <GptMessage key={index} text={message.text} />
             ) : (
               <UserMessage key={index} text={message.text} />
             )
