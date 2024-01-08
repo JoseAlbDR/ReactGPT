@@ -39,7 +39,7 @@ export const menuRoutes: MenuItem[] = [
     to: '/translate',
     icon: 'fa-solid fa-language',
     title: 'Traduction',
-    description: 'Text to other languages',
+    description: 'Translate to other languages',
     component: <TranslatePage />,
   },
   {
