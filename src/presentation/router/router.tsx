@@ -17,7 +17,7 @@ export const menuRoutes: MenuItem[] = [
   {
     to: '/orthography',
     icon: 'fa-solid fa-spell-check',
-    title: 'Orthography',
+    title: 'Spell Check',
     description: 'Correcting spelling',
     component: <OrthographyPage />,
   },
