@@ -16,7 +16,7 @@ const GptOrthographyMessage = ({ userScore, errors, message }: Props) => {
         <div className="relative ml-3 text-sm bg-black bg-opacity-25 pt-3 pb-2 px-4 shadow rounded-xl">
           {/* <Markdown>{text}</Markdown> */}
 
-          <h3 className="pb-2">User Score: {userScore}%</h3>
+          <h3 className="pb-2 text-xl">User Score: {userScore}%</h3>
           <p> {message}</p>
           <h3>
             {errors.length === 0 ? (
