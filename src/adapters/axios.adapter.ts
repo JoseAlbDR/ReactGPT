@@ -34,4 +34,7 @@ customFetch.interceptors.response.use(
   }
 );
 
-export default customFetch;
+export const http = {
+  get: (endPoint: string) => customFetch.get(endPoint),
+  post: (endPoint: string, body: unknown) => customFetch.post(endPoint, body),
+};
