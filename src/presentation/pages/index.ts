@@ -7,3 +7,4 @@ export { default as ProsConsStreamPage } from './pros-cons-stream/ProsConsStream
 export { default as TextToAudioPage } from './text-to-audio/TextToAudioPage';
 export { default as TranslatePage } from './translate/TranslatePage';
 export { default as ImageTunningPage } from './image-generation/ImageTunningPage';
+export { default as TextMessageBoxFile } from '../components/chat-input-boxes/TextMessageBoxFile';
