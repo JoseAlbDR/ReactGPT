@@ -15,7 +15,7 @@ export const proConsUseCase = async (prompt: string) => {
     console.error({ error });
     return {
       ok: false,
-      message: `Could not realize pro cons discusser`,
+      message: `Could not realize comparative`,
     };
   }
 };
