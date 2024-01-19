@@ -10,6 +10,8 @@ const url = import.meta.env.VITE_BASE_URL;
 
 const customFetch = axios.create({ baseURL: url });
 
+customFetch.interceptors.response.use((response) => response.data);
+
 export const http = {
   get: (endPoint: string) => customFetch.get(endPoint),
   post: <T>(endPoint: string, body: unknown): Promise<T> =>

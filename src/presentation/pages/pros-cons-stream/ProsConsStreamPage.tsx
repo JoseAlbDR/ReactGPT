@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import { useState } from 'react';
 import {
   GptMessage,
@@ -20,13 +21,29 @@ const ProsConsStreamPage = () => {
     setIsLoading(true);
     setMessages((prev) => [...prev, { text, isGpt: false }]);
 
-    //TODO: UseCase
-
-    await proStreamConsUseCase(text);
-
+    const reader = await proStreamConsUseCase(text);
     setIsLoading(false);
 
-    //TODO: Add message isGpt true
+    if (!reader) return;
+
+    const decoder = new TextDecoder();
+    let message = '';
+    setMessages((prev) => [...prev, { text: message, isGpt: true }]);
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+
+      const decodedChunk = decoder.decode(value, { stream: true });
+
+      message += decodedChunk;
+
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        newMessages[newMessages.length - 1].text = message;
+        return newMessages;
+      });
+    }
   };
 
   return (
@@ -37,7 +54,7 @@ const ProsConsStreamPage = () => {
 
           {messages.map((message, index) =>
             message.isGpt ? (
-              <GptMessage key={index} text="OpenAI!" />
+              <GptMessage key={index} text={message.text} />
             ) : (
               <UserMessage key={index} text={message.text} />
             )
