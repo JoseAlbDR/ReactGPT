@@ -22,7 +22,7 @@ export const http = {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt: body }),
+      body: JSON.stringify(body),
       signal: abortSignal,
     }),
 };

@@ -2,24 +2,30 @@
 
 import { http } from '../../adapters';
 
-export async function* prosConsStreamGeneratorUseCase(
-  prompt: string,
+interface Payload {
+  prompt: string;
+  lang: string;
+}
+
+export async function* translateStreamGeneratorUseCase(
+  payload: Payload,
   abortSignal: AbortSignal
 ) {
+  const { prompt, lang } = payload;
+
   try {
     const res = await http.postStream(
-      'pros-cons-discusser-stream',
-      { prompt },
+      'translate',
+      { prompt, lang },
       abortSignal
     );
 
-    if (!res.ok) throw new Error('Could not realize comparative');
+    if (!res.ok) throw new Error('Could not translate, try again later');
 
     const reader = res.body?.getReader();
 
     if (!reader) {
-      console.log('Could not generate reader');
-      return null;
+      throw new Error('Could not create reader');
     }
 
     const decoder = new TextDecoder();
@@ -32,11 +38,16 @@ export async function* prosConsStreamGeneratorUseCase(
 
       const decodedChunk = decoder.decode(value, { stream: true });
       text += decodedChunk;
-      // console.log(text);
-      yield text;
+      yield {
+        ok: true,
+        message: text,
+      };
     }
   } catch (error) {
-    console.error({ error });
-    return null;
+    console.log({ error });
+    return {
+      ok: false,
+      message: error,
+    };
   }
 }

@@ -2,9 +2,16 @@
 
 import { http } from '../../adapters';
 
-export const proStreamConsUseCase = async (prompt: string) => {
+export const proStreamConsUseCase = async (
+  prompt: string,
+  abortSignal: AbortSignal
+) => {
   try {
-    const res = await http.postStream('pros-cons-discusser-stream', prompt);
+    const res = await http.postStream(
+      'pros-cons-discusser-stream',
+      { prompt },
+      abortSignal
+    );
 
     if (!res.ok) throw new Error('Could not realize comparative');
 

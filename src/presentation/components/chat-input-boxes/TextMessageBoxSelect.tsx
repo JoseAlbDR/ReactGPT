@@ -25,9 +25,10 @@ const TextMessageBoxSelect = ({
     event.preventDefault();
 
     if (message.trim().length === 0) return;
+    if (selectedOption === '') return;
 
     onSendMessage(message, selectedOption);
-    setMessage('');
+    if (selectedOption !== '') setMessage('');
   };
 
   return (
