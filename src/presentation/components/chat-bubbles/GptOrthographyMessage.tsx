@@ -19,7 +19,7 @@ const GptOrthographyMessage = ({ userScore, errors, message }: Props) => {
           <h3 className="pb-2 text-xl">User Score: {userScore}%</h3>
           <p> {message}</p>
           <h3>
-            {errors.length === 0 ? (
+            {errors?.length === 0 ? (
               <p>No errors found, awesome!</p>
             ) : (
               <>
