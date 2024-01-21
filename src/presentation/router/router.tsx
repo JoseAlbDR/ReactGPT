@@ -50,6 +50,13 @@ export const menuRoutes: MenuItem[] = [
     component: <TextToAudioPage />,
   },
   {
+    to: '/audio-to-text',
+    icon: 'fa-solid fa-comment-dots',
+    title: 'Audio to text',
+    description: 'Convert audio to text',
+    component: <AudioToTextPage />,
+  },
+  {
     to: '/image-generation',
     icon: 'fa-solid fa-image',
     title: 'Images',
@@ -62,13 +69,6 @@ export const menuRoutes: MenuItem[] = [
     title: 'Edit image',
     description: 'Continuous Generation',
     component: <ImageTunningPage />,
-  },
-  {
-    to: '/audio-to-text',
-    icon: 'fa-solid fa-comment-dots',
-    title: 'Audio to text',
-    description: 'Convert audio to text',
-    component: <AudioToTextPage />,
   },
   {
     to: '/assistant',

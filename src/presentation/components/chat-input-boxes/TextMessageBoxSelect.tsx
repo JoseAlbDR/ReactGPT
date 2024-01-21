@@ -59,7 +59,7 @@ const TextMessageBoxSelect = ({
           >
             <option value="">Select one</option>
             {options.map(({ id, text }) => (
-              <option key={id} value={id}>
+              <option key={id} value={id} className="capitalize">
                 {text}
               </option>
             ))}

@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from 'react';
 
 interface Props {
-  onSendMessage: (message: string) => void;
+  onSendMessage: (message: string, file: File) => void;
   placeholder?: string;
   disableCorrections?: boolean;
   accept?: string; //image*
@@ -22,16 +22,18 @@ const TextMessageBoxFile = ({
   const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (message.trim().length === 0) return;
+    if (!selectedFile) return;
 
-    onSendMessage(message);
+    onSendMessage(message, selectedFile);
     setMessage('');
+    setSelectedFile(null);
   };
 
   return (
     <form
       onSubmit={handleSendMessage}
       className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
+      encType="multipart/form-data"
     >
       <div className="mr-3">
         <button
@@ -47,7 +49,9 @@ const TextMessageBoxFile = ({
           ref={inputFileRef}
           className="none"
           accept={accept}
-          onChange={(e) => setSelectedFile(e.target.files?.item(0))}
+          onChange={(e) => {
+            return setSelectedFile(e.target.files?.item(0));
+          }}
           hidden
         />
       </div>
