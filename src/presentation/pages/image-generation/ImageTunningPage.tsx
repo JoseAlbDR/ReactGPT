@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import {
-  GptMessageImage,
+  // GptMessageImage,
   GptMessage,
   UserMessage,
   TypingLoader,
   TextMessageBox,
+  GptMessageSelectableImage,
 } from '../../components';
 import {
   imageGenerationUseCase,
@@ -83,8 +84,6 @@ const ImageTunningPage = () => {
         },
       },
     ]);
-
-    //TODO: Add message isGpt true
   };
 
   return (
@@ -109,7 +108,8 @@ const ImageTunningPage = () => {
 
             {messages.map((message, index) =>
               message.isGpt ? (
-                <GptMessageImage
+                // <GptMessageImage
+                <GptMessageSelectableImage
                   key={index}
                   alt={message.info!.alt}
                   imageUrl={message.info!.imageUrl}

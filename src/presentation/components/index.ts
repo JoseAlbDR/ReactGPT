@@ -8,3 +8,4 @@ export { default as TextMessageBoxSelect } from '../components/chat-input-boxes/
 export { default as GptOrthographyMessage } from './chat-bubbles/GptOrthographyMessage';
 export { default as GptMessageAudio } from './chat-bubbles/GptMessageAudio';
 export { default as GptMessageImage } from './chat-bubbles/GptMessageImage';
+export { default as GptMessageSelectableImage } from './chat-bubbles/GptMessageSelectableImage';
