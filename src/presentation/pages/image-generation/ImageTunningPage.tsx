@@ -62,8 +62,9 @@ const ImageTunningPage = () => {
   const handlePost = async (text: string) => {
     setIsLoading(true);
     setMessages((prev) => [...prev, { text, isGpt: false }]);
+    const { original, mask } = originalImageAndMask;
 
-    const image = await imageGenerationUseCase(text);
+    const image = await imageGenerationUseCase(text, original, mask);
     setIsLoading(false);
 
     if (!image) {
@@ -93,7 +94,11 @@ const ImageTunningPage = () => {
           <span>Editing</span>
           <img
             className="border rounded-xl w-36 h36 object-contain"
-            src={originalImageAndMask.original}
+            src={
+              originalImageAndMask.mask
+                ? originalImageAndMask.mask
+                : originalImageAndMask.original
+            }
             alt="original image"
           />
           <button className="btn-primary mt-2" onClick={handleVariation}>
@@ -113,10 +118,10 @@ const ImageTunningPage = () => {
                   key={index}
                   alt={message.info!.alt}
                   imageUrl={message.info!.imageUrl}
-                  onImageSelected={(url) =>
+                  onImageSelected={(maskImageUrl) =>
                     setOriginalImageAndMask({
-                      original: url,
-                      mask: undefined,
+                      original: message.info?.imageUrl,
+                      mask: maskImageUrl,
                     })
                   }
                 />
