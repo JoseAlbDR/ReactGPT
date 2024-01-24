@@ -22,12 +22,19 @@ interface Message {
 
 const ImageTunningPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      isGpt: true,
+      text: 'Base image',
+      info: {
+        imageUrl:
+          'http://localhost:3000/gpt/image-generator/11c9faff-ba05-4709-a531-b54a1df3fa4f.png',
+        alt: 'Base image',
+      },
+    },
+  ]);
   const [originalImageAndMask, setOriginalImageAndMask] = useState({
-    original:
-      'http://localhost:3000/gpt/image-generator/dbb85cec-733a-4e2a-a103-ebbe2c558d9b.png' as
-        | string
-        | undefined,
+    original: undefined as string | undefined,
     mask: undefined as string | undefined,
   });
 
@@ -55,7 +62,7 @@ const ImageTunningPage = () => {
     setIsLoading(true);
     setMessages((prev) => [...prev, { text, isGpt: false }]);
 
-    const image = await imageVariationUseCase(originalImageAndMask.original!);
+    const image = await imageGenerationUseCase(text);
     setIsLoading(false);
 
     if (!image) {
@@ -106,6 +113,12 @@ const ImageTunningPage = () => {
                   key={index}
                   alt={message.info!.alt}
                   imageUrl={message.info!.imageUrl}
+                  onImageSelected={(url) =>
+                    setOriginalImageAndMask({
+                      original: url,
+                      mask: undefined,
+                    })
+                  }
                 />
               ) : (
                 <UserMessage key={index} text={message.text} />
