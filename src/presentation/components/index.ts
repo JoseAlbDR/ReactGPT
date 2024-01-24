@@ -7,3 +7,4 @@ export { default as TextMessageBoxFile } from '../components/chat-input-boxes/Te
 export { default as TextMessageBoxSelect } from '../components/chat-input-boxes/TextMessageBoxSelect';
 export { default as GptOrthographyMessage } from './chat-bubbles/GptOrthographyMessage';
 export { default as GptMessageAudio } from './chat-bubbles/GptMessageAudio';
+export { default as GptMessageImage } from './chat-bubbles/GptMessageImage';
