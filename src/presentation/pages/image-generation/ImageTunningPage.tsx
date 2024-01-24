@@ -6,7 +6,10 @@ import {
   TypingLoader,
   TextMessageBox,
 } from '../../components';
-import { imageGenerationUseCase } from '../../../core/use-cases';
+import {
+  imageGenerationUseCase,
+  imageVariationUseCase,
+} from '../../../core/use-cases';
 
 interface Message {
   text: string;
@@ -20,7 +23,7 @@ interface Message {
 const ImageTunningPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [originalImageAndMas, setOriginalImageAndMask] = useState({
+  const [originalImageAndMask, setOriginalImageAndMask] = useState({
     original:
       'http://localhost:3000/gpt/image-generator/dbb85cec-733a-4e2a-a103-ebbe2c558d9b.png' as
         | string
@@ -28,11 +31,31 @@ const ImageTunningPage = () => {
     mask: undefined as string | undefined,
   });
 
+  const handleVariation = async () => {
+    setIsLoading(true);
+    const image = await imageVariationUseCase(originalImageAndMask.original!);
+    setIsLoading(false);
+
+    if (!image) return;
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        text: 'Variation',
+        isGpt: true,
+        info: {
+          imageUrl: image.url,
+          alt: image.alt,
+        },
+      },
+    ]);
+  };
+
   const handlePost = async (text: string) => {
     setIsLoading(true);
     setMessages((prev) => [...prev, { text, isGpt: false }]);
 
-    const image = await imageGenerationUseCase(text);
+    const image = await imageVariationUseCase(originalImageAndMask.original!);
     setIsLoading(false);
 
     if (!image) {
@@ -59,15 +82,17 @@ const ImageTunningPage = () => {
 
   return (
     <>
-      {originalImageAndMas.original && (
+      {originalImageAndMask.original && (
         <div className="fixed flex-col items-center top-10 right-10 z-10 fade-in">
           <span>Editing</span>
           <img
             className="border rounded-xl w-36 h36 object-contain"
-            src={originalImageAndMas.original}
+            src={originalImageAndMask.original}
             alt="original image"
           />
-          <button className="btn-primary mt-2">Generate Variation</button>
+          <button className="btn-primary mt-2" onClick={handleVariation}>
+            Generate Variation
+          </button>
         </div>
       )}
       <div className="chat-container">
