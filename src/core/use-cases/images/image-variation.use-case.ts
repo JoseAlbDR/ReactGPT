@@ -1,4 +1,4 @@
-import { http } from '../../adapters';
+import { http } from '../../../adapters';
 
 type GeneratedImage = Image | null;
 
@@ -12,16 +12,12 @@ interface ImageResponse {
   openAIUrl: string;
   revised_prompt: string;
 }
-export const imageGenerationUseCase = async (
-  prompt: string,
-  originalImage?: string,
-  maskImage?: string
+export const imageVariationUseCase = async (
+  originalImage: string
 ): Promise<GeneratedImage> => {
   try {
-    const response = await http.post<ImageResponse>('/image-generator', {
-      prompt,
-      originalImage,
-      maskImage,
+    const response = await http.post<ImageResponse>('/image-variation', {
+      baseImage: originalImage,
     });
 
     return { url: response.url, alt: response.revised_prompt };

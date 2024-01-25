@@ -1,5 +1,5 @@
-import { http } from '../../adapters';
-import { ProConsResponse } from '../../interfaces';
+import { http } from '../../../adapters';
+import { ProConsResponse } from '../../../interfaces';
 
 export const proConsUseCase = async (prompt: string) => {
   try {

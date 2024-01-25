@@ -1,4 +1,4 @@
-import { http } from '../../adapters';
+import { http } from '../../../adapters';
 
 interface Payload {
   prompt: string;

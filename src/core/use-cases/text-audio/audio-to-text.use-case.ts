@@ -1,5 +1,5 @@
-import { http } from '../../adapters';
-import { AudioToTextResponse } from '../../interfaces';
+import { http } from '../../../adapters';
+import { AudioToTextResponse } from '../../../interfaces';
 
 interface Payload {
   prompt?: string;

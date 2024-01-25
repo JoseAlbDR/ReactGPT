@@ -1,5 +1,5 @@
-import { http } from '../../adapters';
-import { OrthographyResponse } from '../../interfaces';
+import { http } from '../../../adapters';
+import { OrthographyResponse } from '../../../interfaces';
 
 export const orthographyUseCase = async (prompt: string) => {
   try {

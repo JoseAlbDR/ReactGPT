@@ -5,7 +5,7 @@ import {
   TypingLoader,
   TextMessageBoxFile,
 } from '../../components';
-import { audioToTextUseCase } from '../../../core/use-cases/audio-to-text.use-case';
+import { audioToTextUseCase } from '../../../core/use-cases/text-audio/audio-to-text.use-case';
 
 interface Message {
   text: string;

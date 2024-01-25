@@ -1,6 +1,6 @@
 /* eslint-disable no-constant-condition */
 
-import { http } from '../../adapters';
+import { http } from '../../../adapters';
 
 export async function* prosConsStreamGeneratorUseCase(
   prompt: string,
