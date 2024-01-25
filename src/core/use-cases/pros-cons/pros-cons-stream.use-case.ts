@@ -8,7 +8,7 @@ export const proStreamConsUseCase = async (
 ) => {
   try {
     const res = await http.postStream(
-      'pros-cons-discusser-stream',
+      `${import.meta.env.VITE_GPT_API}/pro-cons-discusser-stream`,
       { prompt },
       abortSignal
     );

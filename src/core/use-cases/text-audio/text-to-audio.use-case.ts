@@ -7,10 +7,13 @@ interface Payload {
 
 export const textToAudioUseCase = async ({ prompt, voice }: Payload) => {
   try {
-    const res = await http.postBlob('text-to-audio', {
-      prompt,
-      voice,
-    });
+    const res = await http.postBlob(
+      `${import.meta.env.VITE_GPT_API}/text-to-audio`,
+      {
+        prompt,
+        voice,
+      }
+    );
 
     if (!res.ok) throw new Error('Could not generate audio');
 

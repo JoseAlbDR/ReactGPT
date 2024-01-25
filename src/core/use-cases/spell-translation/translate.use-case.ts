@@ -15,7 +15,7 @@ export async function* translateStreamGeneratorUseCase(
 
   try {
     const res = await http.postStream(
-      'translate',
+      `${import.meta.env.VITE_GPT_API}/translate`,
       { prompt, lang },
       abortSignal
     );

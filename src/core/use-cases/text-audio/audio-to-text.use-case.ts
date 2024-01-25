@@ -21,7 +21,10 @@ export const audioToTextUseCase = async ({
   if (prompt) formData.append('prompt', prompt);
 
   try {
-    const res = await http.post<AudioToTextResponse>('audio-to-text', formData);
+    const res = await http.post<AudioToTextResponse>(
+      `${import.meta.env.VITE_GPT_API}/audio-to-text`,
+      formData
+    );
 
     return {
       ok: true,

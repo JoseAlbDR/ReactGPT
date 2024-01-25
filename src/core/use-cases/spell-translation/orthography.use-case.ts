@@ -3,9 +3,12 @@ import { OrthographyResponse } from '../../../interfaces';
 
 export const orthographyUseCase = async (prompt: string) => {
   try {
-    const data = await http.post<OrthographyResponse>('/orthography-check', {
-      prompt,
-    });
+    const data = await http.post<OrthographyResponse>(
+      `${import.meta.env.VITE_GPT_API}/orthography-check`,
+      {
+        prompt,
+      }
+    );
 
     return {
       ok: true,
