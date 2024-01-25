@@ -18,11 +18,14 @@ export const imageGenerationUseCase = async (
   maskImage?: string
 ): Promise<GeneratedImage> => {
   try {
-    const response = await http.post<ImageResponse>('/image-generator', {
-      prompt,
-      originalImage,
-      maskImage,
-    });
+    const response = await http.post<ImageResponse>(
+      `${import.meta.env.VITE_GPT_API}/image-generator`,
+      {
+        prompt,
+        originalImage,
+        maskImage,
+      }
+    );
 
     return { url: response.url, alt: response.revised_prompt };
   } catch (error) {

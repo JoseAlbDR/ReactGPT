@@ -15,7 +15,7 @@ customFetch.interceptors.response.use((response) => response.data);
 export const http = {
   get: (endPoint: string) => customFetch.get(endPoint),
 
-  post: <T>(endPoint: string, body: unknown): Promise<T> =>
+  post: <T>(endPoint: string, body: unknown = {}): Promise<T> =>
     customFetch.post(endPoint, body),
 
   postStream: (endPoint: string, body: unknown, abortSignal: AbortSignal) =>
