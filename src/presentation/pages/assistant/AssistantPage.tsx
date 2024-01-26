@@ -5,7 +5,10 @@ import {
   TypingLoader,
   TextMessageBox,
 } from '../../components';
-import { createThreadUseCase } from '../../../core/use-cases';
+import {
+  createThreadUseCase,
+  postQuestionUseCase,
+} from '../../../core/use-cases';
 
 interface Message {
   text: string;
@@ -39,12 +42,40 @@ const AssistantPage = () => {
   }, [threadId]);
 
   const handlePost = async (text: string) => {
+    if (!threadId) return;
+
     setIsLoading(true);
     setMessages((prev) => [...prev, { text, isGpt: false }]);
 
+    const replies = await postQuestionUseCase({ question: text, threadId });
+
     setIsLoading(false);
 
-    //TODO: Add message isGpt true
+    console.log({ replies });
+
+    const lastMessage = replies.at(-1)!;
+
+    lastMessage.content.forEach((message) => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: message,
+          isGpt: lastMessage.role === 'assistant',
+          info: lastMessage,
+        },
+      ]);
+    });
+
+    // for (const reply of replies) {
+    //   for (const message of reply.content) {
+    //     setMessages((prev) => [
+    //       ...prev,
+    //       { text: message, isGpt: reply.role === 'assistant', info: reply },
+    //     ]);
+    //   }
+    // }
+
+    setMessages((prev) => [...prev]);
   };
 
   return (
