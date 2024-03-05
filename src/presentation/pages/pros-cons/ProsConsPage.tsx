@@ -6,6 +6,7 @@ import {
   UserMessage,
 } from '../../components';
 import { proConsUseCase } from '../../../core/use-cases';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface Message {
   text: string;
@@ -15,6 +16,7 @@ interface Message {
 const ProsConsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { messagesEndRef } = useScroll(messages);
 
   const handlePost = async (text: string) => {
     setIsLoading(true);
@@ -59,6 +61,8 @@ const ProsConsPage = () => {
               <TypingLoader />
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

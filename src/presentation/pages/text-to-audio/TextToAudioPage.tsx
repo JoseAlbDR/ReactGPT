@@ -7,6 +7,7 @@ import {
   GptMessageAudio,
 } from '../../components';
 import { textToAudioUseCase } from '../../../core/use-cases';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface TextMessage {
   text: string;
@@ -58,6 +59,8 @@ const voices = [
 const TextToAudio = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+
+  const { messagesEndRef } = useScroll(messages);
 
   const handlePost = async (text: string, selectedVoice: string) => {
     setIsLoading(true);
@@ -111,6 +114,8 @@ const TextToAudio = () => {
               <TypingLoader />
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

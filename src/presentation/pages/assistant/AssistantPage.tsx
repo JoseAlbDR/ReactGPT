@@ -9,6 +9,7 @@ import {
   createThreadUseCase,
   postQuestionUseCase,
 } from '../../../core/use-cases';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface Message {
   text: string;
@@ -19,6 +20,7 @@ const AssistantPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [threadId, setThreadId] = useState<string>();
+  const { messagesEndRef } = useScroll(messages);
 
   useEffect(() => {
     const id = localStorage.getItem('threadId');
@@ -97,6 +99,8 @@ const AssistantPage = () => {
               <TypingLoader />
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

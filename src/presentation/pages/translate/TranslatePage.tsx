@@ -6,6 +6,7 @@ import {
   UserMessage,
 } from '../../components';
 import { translateStreamGeneratorUseCase } from '../../../core/use-cases';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface Message {
   text: string;
@@ -31,6 +32,7 @@ const TranslatePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const isRunning = useRef(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { messagesEndRef } = useScroll(messages);
 
   const handlePost = async (text: string, selectedOption: string) => {
     if (isRunning.current) {
@@ -86,6 +88,8 @@ const TranslatePage = () => {
               <TypingLoader />
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

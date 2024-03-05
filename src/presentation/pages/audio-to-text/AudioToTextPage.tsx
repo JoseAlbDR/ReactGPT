@@ -6,6 +6,7 @@ import {
   TextMessageBoxFile,
 } from '../../components';
 import { audioToTextUseCase } from '../../../core/use-cases/text-audio/audio-to-text.use-case';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface Message {
   text: string;
@@ -15,6 +16,7 @@ interface Message {
 const AudioToText = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { messagesEndRef } = useScroll(messages);
 
   const handlePost = async (text: string, audioFile: File) => {
     setIsLoading(true);
@@ -77,6 +79,8 @@ ${segment.text}
               <TypingLoader />
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

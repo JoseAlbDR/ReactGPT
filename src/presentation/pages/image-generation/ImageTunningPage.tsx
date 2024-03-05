@@ -11,6 +11,7 @@ import {
   imageGenerationUseCase,
   imageVariationUseCase,
 } from '../../../core/use-cases';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface Message {
   text: string;
@@ -34,6 +35,9 @@ const ImageTunningPage = () => {
       },
     },
   ]);
+
+  const { messagesEndRef } = useScroll(messages);
+
   const [originalImageAndMask, setOriginalImageAndMask] = useState({
     original: undefined as string | undefined,
     mask: undefined as string | undefined,
@@ -135,6 +139,8 @@ const ImageTunningPage = () => {
                 <TypingLoader />
               </div>
             )}
+
+            <div ref={messagesEndRef} />
           </div>
         </div>
 

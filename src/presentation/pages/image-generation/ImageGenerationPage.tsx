@@ -7,6 +7,7 @@ import {
   TextMessageBox,
 } from '../../components';
 import { imageGenerationUseCase } from '../../../core/use-cases';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface Message {
   text: string;
@@ -20,6 +21,7 @@ interface Message {
 const ImageGenerationPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { messagesEndRef } = useScroll(messages);
 
   const handlePost = async (text: string) => {
     setIsLoading(true);
@@ -73,6 +75,8 @@ const ImageGenerationPage = () => {
               <TypingLoader />
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

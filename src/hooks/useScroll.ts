@@ -1,6 +1,7 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { Message } from '../interfaces';
 
-export const useScroll = () => {
+export const useScroll = (messages: Message[]) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -8,5 +9,9 @@ export const useScroll = () => {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-  return { messagesEndRef, scrollToBottom };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  return { messagesEndRef };
 };

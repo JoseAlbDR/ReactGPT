@@ -7,6 +7,7 @@ import {
   TextMessageBox,
 } from '../../components';
 import { prosConsStreamGeneratorUseCase } from '../../../core/use-cases';
+import { useScroll } from '../../../hooks/useScroll';
 
 interface Message {
   text: string;
@@ -18,6 +19,7 @@ const ProsConsStreamPage = () => {
   const isRunning = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { messagesEndRef } = useScroll(messages);
 
   const handlePost = async (text: string) => {
     if (isRunning.current) {
@@ -90,6 +92,8 @@ const ProsConsStreamPage = () => {
               <TypingLoader />
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 
